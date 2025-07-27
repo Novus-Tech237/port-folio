@@ -1,4 +1,4 @@
-import { env } from "@/env";
+
 import prisma from "@/lib/prisma";
 import stripe from "@/lib/stripe";
 import { clerkClient } from "@clerk/nextjs/server";
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const event = stripe.webhooks.constructEvent(
       payload,
       signature,
-      env.STRIPE_WEBHOOK_SECRET,
+      process.env.STRIPE_WEBHOOK_SECRET!,
     );
 
     console.log(`Received event: ${event.type}`, event.data.object);

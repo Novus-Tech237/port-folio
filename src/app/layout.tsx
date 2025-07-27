@@ -1,19 +1,14 @@
-import { Toaster } from "@/components/ui/toaster";
-import { ClerkProvider } from "@clerk/nextjs";
+
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import { ClerkProvider } from "@clerk/nextjs";
+import Providers from "@/components/provider/query-provider";
 
 export const metadata: Metadata = {
-  title: {
-    template: "%s - AI Resume Builder",
-    absolute: "AI Resume Builder",
-  },
-  description:
-    "AI Resume Builder is the easiest way to create a professional resume that will help you land your dream job.",
+  title: "Portfolio | Online CV Platform creator",
+  description: "Portfolio is a platform that helps job seekers to create an online CV. Create stunning website in minutes. No coding needed. Just input your information and let Portfolio transform it to your professional website",
+  
 };
 
 export default function RootLayout({
@@ -22,20 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-          </ThemeProvider>
+        <head>
+          <link rel="icon" href="/favicon.ico" />
+        </head>
+        <body className="antialiased">
+          <Providers>{children}</Providers>
         </body>
       </html>
     </ClerkProvider>
+
   );
 }

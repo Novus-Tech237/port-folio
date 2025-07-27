@@ -1,4 +1,4 @@
-import { env } from "@/env";
+
 import { cache } from "react";
 import prisma from "./prisma";
 
@@ -6,6 +6,11 @@ export type SubscriptionLevel = "free" | "pro" | "pro_plus";
 
 export const getUserSubscriptionLevel = cache(
   async (userId: string): Promise<SubscriptionLevel> => {
+    // Temporarily return 'pro_plus' for development when Stripe is not configured
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return "pro_plus";
+    }
+
     const subscription = await prisma.userSubscription.findUnique({
       where: {
         userId,
@@ -17,14 +22,14 @@ export const getUserSubscriptionLevel = cache(
     }
 
     if (
-      subscription.stripePriceId === env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_MONTHLY
+      subscription.stripePriceId === process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_MONTHLY
     ) {
       return "pro";
     }
 
     if (
       subscription.stripePriceId ===
-      env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_PLUS_MONTHLY
+      process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_PLUS_MONTHLY
     ) {
       return "pro_plus";
     }
