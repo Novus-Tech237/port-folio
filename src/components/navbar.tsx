@@ -82,10 +82,31 @@ export default function Header() {
           </>
         ) : (
           <>
-            {/* Other pages layout: Logo - Theme/User */}
+            {/* Other pages layout: Logo - Menu Links - Theme/User */}
             <div className="flex items-center">
               <Link href="/" className="-m-1.5 p-1.5 font-bold text-xl">
                 <Logo />
+              </Link>
+            </div>
+
+            <div className="hidden md:flex items-center gap-6">
+              <Link 
+                href="/resumes" 
+                className="text-sm font-semibold leading-6 text-foreground hover:text-red-600 transition-colors"
+              >
+                Resumes
+              </Link>
+              <Link 
+                href="/cover-letters" 
+                className="text-sm font-semibold leading-6 text-foreground hover:text-red-600 transition-colors"
+              >
+                Cover Letters
+              </Link>
+              <Link 
+                href="/website" 
+                className="text-sm font-semibold leading-6 text-foreground hover:text-red-600 transition-colors"
+              >
+                Website
               </Link>
             </div>
 
