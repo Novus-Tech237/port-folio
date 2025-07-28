@@ -1,6 +1,5 @@
 "use server";
 
-import { env } from "@/env";
 import stripe from "@/lib/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -21,7 +20,7 @@ export async function createCustomerPortalSession() {
 
   const session = await stripe.billingPortal.sessions.create({
     customer: stripeCustomerId,
-    return_url: `${env.NEXT_PUBLIC_BASE_URL}/billing`,
+    return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/billing`,
   });
 
   if (!session.url) {

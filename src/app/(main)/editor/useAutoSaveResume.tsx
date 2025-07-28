@@ -37,10 +37,6 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
 
         const updatedResume = await saveResume({
           ...newData,
-          ...(JSON.stringify(lastSavedData.photo, fileReplacer) ===
-            JSON.stringify(newData.photo, fileReplacer) && {
-            photo: undefined,
-          }),
           id: resumeId,
         });
 

@@ -37,13 +37,24 @@ export default async function Page() {
   ]);
 
   return (
-    <main className="mx-auto w-full max-w-7xl space-y-6 px-3 py-6">
-      <CreateResumeButton
-        canCreate={canCreateResume(subscriptionLevel, totalCount)}
-      />
-      <div className="space-y-1">
-        <h1 className="text-3xl font-bold">Your resumes</h1>
-        <p>Total: {totalCount}</p>
+
+    <main className="mx-auto w-full max-w-7xl space-y-12 px-3 py-6">
+      <div className="flex flex-col gap-8">
+        <div className="flex items-start justify-between w-full">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl font-bold">
+              Your <span className="text-red-600">Resumes</span>
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Total: {totalCount}
+            </p>
+          </div>
+          <div className="flex flex-col items-end gap-2">
+            <CreateResumeButton
+              canCreate={canCreateResume(subscriptionLevel, totalCount)}
+            />
+          </div>
+        </div>
       </div>
       <div className="flex w-full grid-cols-2 flex-col gap-3 sm:grid md:grid-cols-3 lg:grid-cols-4">
         {resumes.map((resume) => (
